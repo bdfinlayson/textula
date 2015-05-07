@@ -50,15 +50,15 @@ development process.
 
 ### Usage Example
 
-> ./game start
-1. Welcome to the Ruby Game Engine!
-2. What would you like to do? (create new / open existing game)
-> create new
-1. What would you like to call your game?
-> Nashville Adventure
-1. What is your game about?
-> Text-based advanture set in Nashville.
-1. Your game, Nashville Adventure, has been created!
+    > ./game start
+    1. Welcome to the Ruby Game Engine!
+    2. What would you like to do? (create new / open existing game)
+    > create new
+    1. What would you like to call your game?
+    > Nashville Adventure
+    1. What is your game about?
+    > Text-based advanture set in Nashville.
+    1. Your game, Nashville Adventure, has been created!
 
 ### Acceptance Criteria
 
