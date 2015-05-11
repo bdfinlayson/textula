@@ -6,6 +6,10 @@ Text-based adventure game engine played in the terminal and written in Ruby.
 This will be a command-line CRUD app written in Ruby that allows users to
 generate their own text-based adventure games.
 
+## Dependencies
+
+The only dependency will be the Ruby gem Sqlite3.
+
 ### Short-term Vision
 Users will be able to add/edit/delete game rooms and add objects and
 exits. Players should be able to move between rooms and execute basic
