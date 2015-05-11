@@ -1,24 +1,49 @@
 # textula
 Text-based adventure game engine played in the terminal and written in Ruby.
 
-# ruby_game_engine
-Text-based adventure game engine played in the terminal and written in Ruby.
-
 ## Project Vision
 
 This will be a command-line CRUD app written in Ruby that allows users to
 generate their own text-based adventure games.
 
-Users will be able to add/edit/delete game scenarios, objects, players,
-and attributes. As they make the game, they can take a trial run to see
+### Short-term Vision
+Users will be able to add/edit/delete game rooms and add objects and
+exits. Players should be able to move between rooms and execute basic
+actions, like look, touch, listen, etc. As they make the game, they can take a trial run to see
 how it plays. Once finished, they can play the whole game and save their
 progress as they go.
+
+
+### Long-term Vision
+
+Users will be able to add/edit/delete game rooms, objects, players,
+and associated objects (contained objects, exits, verbs, games). They should be able to interact with the objects in the game, such as adding the object to the player's inventory or moving objects from room to room. Objects should be allowed to contain other objects. Battles against game characters should also be possible. As they make the game, they can take a trial run to see
+how it plays. Once finished, they can play the whole game and save their
+progress as they go.
+
+## File Structure
+
+|--app
+|  |--controllers
+|  |--models
+|
+|--Gemfile
+|--Gemfile.lock
+|--textula.rb
+|--README.md
+|
+|--test
+   |--controllers
+   |--integration
+   |--models
+   |--test_helper.rb
+
 
 ## Features
 
 The game will allow users to:
 
-* add/edit/delete game objects, players, scenarios, attributes
+* add/edit/delete game objects, players, rooms, and associated objects.
 * play game as they build it
 * play the entire game once they are done
 * save their progress as they play and come back to it
@@ -63,7 +88,9 @@ development process.
 ### Acceptance Criteria
 
 * Program creates new games
-* Program allows users to dynamically add new objects, scenarios,
+* Players can move between rooms and have their location updated
+* Players can interact with the game environment in simple ways
+* Program allows users to dynamically add new objects, rooms,
   players to the game
 * Program allows users to play the game at any point in the development
   process
