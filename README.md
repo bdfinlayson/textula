@@ -27,20 +27,20 @@ progress as they go.
 
 ## File Structure
 
-|--app
-|  |--controllers
-|  |--models
-|
-|--Gemfile
-|--Gemfile.lock
-|--textula.rb
-|--README.md
-|
-|--test
-   |--controllers
-   |--integration
-   |--models
-   |--test_helper.rb
+    |--app
+    |  |--controllers
+    |  |--models
+    |
+    |--Gemfile
+    |--Gemfile.lock
+    |--textula.rb
+    |--README.md
+    |
+    |--test
+       |--controllers
+       |--integration
+       |--models
+       |--test_helper.rb
 
 
 ## Features
