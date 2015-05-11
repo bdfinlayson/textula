@@ -8,5 +8,5 @@ require 'minitest/autorun'
 task :default => :test
 
 Rake::TestTask.new() do |config|
-  config.pattern = "tests/test_*.rb"
+  config.pattern = "tests/*/test_*.rb"
   end
