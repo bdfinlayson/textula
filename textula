@@ -6,21 +6,16 @@ require_relative 'app/controllers/rooms'
 menu_prompt = "1. Add room\n2. Quit\n"
 input = ARGV
 
-if input.length < 1
-  print "[Help] Run as: ./textula manage"
-elsif input.length == 1
-  # not valid argument
-  if input[0] != 'manage'
-    print "[Help] Run as: ./textula manage"
-  else
-    choose do |menu|
-      menu.prompt = ""
-      menu.choice('Add room') {
-        puts "Welcome to the room creator!\n"
-        rooms = Rooms.new
-        rooms.start
-      }
-      menu.choice('Quit') { puts "Thanks for playing!\n" }
-    end
+if input.size == 1 and input[0] == 'manage'
+  choose do |menu|
+    menu.prompt = ""
+    menu.choice('Add room') {
+      puts "Welcome to the room creator!\n"
+      rooms = Rooms.new
+      rooms.start
+    }
+    menu.choice('Quit') { puts "Thanks for playing!\n" }
   end
+else
+  puts "[Help] Run as: ./textula manage\n"
 end

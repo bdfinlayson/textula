@@ -6,7 +6,7 @@ class TestTextula < Minitest::Test
     shell_output = ''
     expected_output = ''
     IO.popen('./textula' ) do |pipe|
-      expected_output = "[Help] Run as: ./textula manage"
+      expected_output = "[Help] Run as: ./textula manage\n"
       shell_output = pipe.read
     end
     assert_equal expected_output, shell_output
@@ -16,7 +16,7 @@ class TestTextula < Minitest::Test
     shell_output = ''
     expected_output = ''
     IO.popen('./textula blah') do |pipe|
-      expected_output = "[Help] Run as: ./textula manage"
+      expected_output = "[Help] Run as: ./textula manage\n"
       shell_output = pipe.read
     end
     assert_equal expected_output, shell_output
