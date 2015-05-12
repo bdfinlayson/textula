@@ -2,6 +2,7 @@ require_relative '../test_helper.rb'
 require 'highline/import'
 
 class TestTextula < Minitest::Test
+
   def test_integration_0a_minimum_arguments_required?
     shell_output = ''
     expected_output = ''
@@ -26,7 +27,7 @@ class TestTextula < Minitest::Test
     shell_output = ''
     expected_output = ''
     IO.popen(' ./textula manage', 'r+') do |pipe|
-      expected_output = "1. Add room\n2. Quit\n"
+      expected_output = main_menu
       pipe.puts "2"
       expected_output << "Thanks for playing!\n"
       pipe.close_write
@@ -39,7 +40,7 @@ class TestTextula < Minitest::Test
     shell_output = ''
     expected_output = ''
     IO.popen(' ./textula manage', 'r+') do |pipe|
-      expected_output = "1. Add room\n2. Quit\n"
+      expected_output = main_menu
       pipe.puts "1"
       expected_output << "Welcome to the room creator!\n"
       pipe.close_write
@@ -52,7 +53,7 @@ class TestTextula < Minitest::Test
     shell_output = ''
     expected_output = ''
     IO.popen(' ./textula manage', 'r+') do |pipe|
-      expected_output = "1. Add room\n2. Quit\n"
+      expected_output = main_menu
       pipe.puts "1"
       expected_output << "Welcome to the room creator!\n"
       expected_output << "What is the name of the room you want to add.\n"
