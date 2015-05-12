@@ -23,55 +23,53 @@ class Rooms
   end
 
   def ask_for_room
-    "What is the name of the room you want to add.\n"
+    puts "What is the name of the room you want to add.\n"
   end
 
   def splash_new_room
-    "You created a #{@room}.\n"
+    puts "You created a #{@room}.\n"
   end
 
   def ask_for_description
-    "What is the description of your #{@room}.\n"
+    puts "What is the description of your #{@room}.\n"
   end
 
   def splash_new_description
-    "You created a description for #{@room}. It reads: #{@description}.\n"
+    puts "You created a description for #{@room}. It reads: #{@description}.\n"
   end
 
   def ask_for_next
-    "What is the #{@room} next to? You can choose from: #{@rooms.join(', ')}.\n"
+    puts "What is the #{@room} next to? You can choose from: #{@rooms.join(', ')}.\n"
   end
 
   def splash_confirmation
-    "Great! The #{@room} is next to the #{@choice}!\n"
+    puts "Great! The #{@room} is next to the #{@choice}!\n"
   end
 
   def splash_wrong
-    "Sorry, #{@choice} is not something I recognize.\n"
+    puts "Sorry, #{@choice} is not something I recognize.\n"
   end
 
   def start
     run_program
-    #make_database
-    #get_rooms
     give_confirmation
     update_database
   end
 
   def run_program
     sleep 1.2
-    puts ask_for_room
+    ask_for_room
     @room = STDIN.gets.chomp
     sleep 1.2
-    puts splash_new_room
+    splash_new_room
     sleep 1.2
-    puts ask_for_description
+    ask_for_description
     @description = STDIN.gets.chomp
-    puts splash_new_description
+    splash_new_description
     sleep 1.2
     make_database
     get_rooms
-    puts ask_for_next
+    ask_for_next
     @choice = STDIN.gets.chomp
   end
 
@@ -89,10 +87,10 @@ class Rooms
     if @rooms.include?(@choice)
       relation = @db.execute("select room from rooms where room like ?", "#{@choice}").flatten
       @db.execute("update rooms set next_to = '#{relation[relation.index(@choice)]}' where room = '#{@room}'")
-      puts splash_confirmation
+      splash_confirmation
       @next_to = @choice
     else
-      puts splash_wrong
+      splash_wrong
     end
   end
 
