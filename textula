@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'highline/import'
-require_relative 'app/controllers/rooms'
+require_relative 'app/controllers/rooms_controller'
 
 menu_prompt = "1. Add room\n2. Quit\n"
 input = ARGV
@@ -11,7 +11,7 @@ if input.size == 1 and input[0] == 'manage'
     menu.prompt = ""
     menu.choice('Add room') {
       puts "Welcome to the room creator!\n"
-      rooms = Rooms.new
+      rooms = RoomsController.new
       rooms.start
     }
     menu.choice('Quit') { puts "Thanks for playing!\n" }
