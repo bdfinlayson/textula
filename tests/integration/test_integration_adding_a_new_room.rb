@@ -23,6 +23,15 @@ class AddingANewRoomTest < Minitest::Test
       expected_output << "The exit from the kitchen to the living room is in which direction? (e.g., 'north', 'south', 'east', 'west')\n"
       pipe.puts "north"
       expected_output << "Awesome! The kitchen has a north exit that leads to the living room!\n"
+      expected_output << "Please enter a description prefix for your room. (e.g. 'You are in the', 'You are in a', 'You are on the')\n"
+      pipe.puts "You are in the"
+      expected_output << "Excellent! Your description prefix will read like this: You are in the kitchen.\n"
+      expected_output << "Please enter an objects list prefix for the objects in your room. (e.g., 'You can see')\n"
+      pipe.puts "You can see"
+      expected_output << "Fantastic! Your objects list prefix is: You can see.\n"
+      expected_output << "Please enter an exits prefix for the exits in your room. (e.g., 'You can go')\n"
+      pipe.puts "You can go"
+      expected_output << "Marvelous! Your exit prefix will read like this: You can go north.\n"
       pipe.close_write
       shell_output = pipe.read
       pipe.close_read

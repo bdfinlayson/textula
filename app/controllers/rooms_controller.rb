@@ -19,6 +19,9 @@ class RoomsController
     @rooms = []
     @choice = ''
     @direction = ''
+    @description_prefix = ''
+    @objects_list_prefix = ''
+    @exits_prefix = ''
   end
 
   def list_current_rooms
@@ -61,6 +64,30 @@ class RoomsController
     puts "Awesome! The #{@room} has a #{@direction} exit that leads to the #{@choice}!\n"
   end
 
+  def ask_for_description_prefix
+    puts "Please enter a description prefix for your room. (e.g. 'You are in the', 'You are in a', 'You are on the')\n"
+  end
+
+  def splash_description_prefix_confirmation
+    puts "Excellent! Your description prefix will read like this: #{@description_prefix} #{@room}."
+  end
+
+  def ask_for_objects_list_prefix
+    puts "Please enter an objects list prefix for the objects in your room. (e.g., 'You can see')\n"
+  end
+
+  def splash_objects_list_prefix_confirmation
+    puts "Fantastic! Your objects list prefix is: #{@objects_list_prefix}.\n"
+  end
+
+  def ask_for_exits_prefix
+    puts "Please enter an exits prefix for the exits in your room. (e.g., 'You can go')\n"
+  end
+
+  def splash_exits_prefix_confirmation
+    puts "Marvelous! Your exit prefix will read like this: #{@exits_prefix} #{@direction}.\n"
+  end
+
   def start
     RoomsDatabase.load_structure
     if RoomsModel.is_start_of_game? > 0
@@ -89,10 +116,27 @@ class RoomsController
     ask_for_exit
     @choice = STDIN.gets.chomp
     confirm_choice_in_database_and_insert
+    sleep 1.2
     ask_for_direction
     @direction = STDIN.gets.chomp
     insert_exit_into_database
+    sleep 1.2
     splash_exit_direction_confirmation
+    sleep 1.2
+    ask_for_description_prefix
+    @description_prefix = STDIN.gets.chomp
+    sleep 1.2
+    splash_description_prefix_confirmation
+    sleep 1.2
+    ask_for_objects_list_prefix
+    @objects_list_prefix = STDIN.gets.chomp
+    sleep 1.2
+    splash_objects_list_prefix_confirmation
+    sleep 1.2
+    ask_for_exits_prefix
+    @exits_prefix = STDIN.gets.chomp
+    sleep 1.2
+    splash_exits_prefix_confirmation
   end
 
   def insert_exit_into_database
