@@ -5,6 +5,7 @@ require 'highline/import'
 require_relative '../controllers/rooms_controller'
 require_relative '../models/rooms_model'
 require_relative '../../lib/rooms_database'
+require_relative '../../lib/exits_database'
 
 class RoomsController
 
@@ -16,7 +17,7 @@ class RoomsController
     @description = ''
     @rooms = []
     @choice = ''
-    @next_to = ''
+    @exit = ''
   end
 
   def ask_for_room
@@ -57,7 +58,7 @@ class RoomsController
     end
     run_program
     give_confirmation
-    RoomsModel.update_database(@room, @description, @next_to)
+    RoomsModel.update_database(@room, @description)
   end
 
   def run_program
@@ -78,16 +79,16 @@ class RoomsController
 
   def give_confirmation
     if @rooms.include?(@choice)
-      RoomsModel.get_relation(@choice, @room)
+      RoomsModel.set_exit(@choice, @room)
       splash_confirmation
-      @next_to = @choice
+      @exit = @choice
     else
       splash_wrong
     end
   end
 
   def index
-    if Rooms.count > 0
+    if count > 0
       rooms = Rooms.all # all the rooms in the array
       rooms.each_with_index do |room, index|
         say("#{index + 1}. #{room.name}")
@@ -96,4 +97,15 @@ class RoomsController
       say("No rooms found. Add a room.\n")
     end
   end
+
+  def all
+    RoomsModel.get_all_rooms_info
+  end
+
+  def count
+    #if there are no rooms in the database it should return 0
+    #if there are rooms it should return the correct count
+    RoomsModel.get_rooms.size
+  end
+
 end
