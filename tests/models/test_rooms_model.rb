@@ -5,7 +5,7 @@ describe RoomsController do
   describe ".all" do
     describe "if there are no rooms in the database" do
       before do
-        clear_table
+        clear_rooms_table
       end
       it "should return an empty array" do
         assert_equal [], RoomsController.new.all
@@ -13,7 +13,7 @@ describe RoomsController do
     end
     describe "if there are rooms" do
       before do
-        clear_table
+        clear_rooms_table
         create_room("kitchen","A nice place to eat")
         create_room("bedroom","Large enough for a kingsized bed")
         create_room("bathroom","The toilet could use a cleaning")
@@ -29,7 +29,7 @@ describe RoomsController do
   describe ".count" do
     describe "if there are no rooms in the database" do
       before do
-        clear_table
+        clear_rooms_table
       end
       it "should return 0" do
         assert_equal 0, RoomsController.new.count
@@ -37,13 +37,15 @@ describe RoomsController do
     end
     describe "if there are rooms" do
       before do
-        clear_table
+        clear_rooms_table
         create_room("kitchen","A nice place to eat")
         create_room("bedroom","Large enough for a kingsized bed")
         create_room("bathroom","The toilet could use a cleaning")
       end
       it "should return the correct count" do
-        assert_equal 3, RoomsController.new.count
+        rooms_count = RoomsController.new.count
+        clear_rooms_table
+        assert_equal 3, rooms_count
       end
     end
   end

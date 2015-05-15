@@ -16,8 +16,12 @@ class Minitest::Test
     RoomsDatabase.load_structure
   end
 
-  def clear_table
+  def clear_rooms_table
     RoomsDatabase.execute("delete from rooms")
+  end
+
+  def clear_exits_table
+    ExitsDatabase.execute("delete from exits")
   end
 
   def create_room(room,description)

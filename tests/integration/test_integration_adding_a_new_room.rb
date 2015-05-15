@@ -4,7 +4,6 @@ require 'sqlite3'
 class AddingANewRoomTest < Minitest::Test
 
   def test_integration_adding_a_new_room_0a_manage_argument_given_then_add_room?
-    clear_table
     shell_output = ''
     expected_output = ''
     IO.popen(' ./textula manage', 'r+') do |pipe|

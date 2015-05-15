@@ -66,8 +66,6 @@ class RoomsController
       RoomsModel.create_default_starting_room
     end
     run_program
-    give_confirmation
-    RoomsModel.update_database(@room, @description)
   end
 
   def run_program

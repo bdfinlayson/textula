@@ -13,15 +13,8 @@ class RoomsModel
     RoomsDatabase.execute("select room, description from rooms")
   end
 
-  def self.update_database(room, description)
-    RoomsDatabase.execute("insert into rooms (room, description) values (?,?)", "#{room},#{description}")
-  end
-
-  def self.set_exit(choice, room)
-    child_room = RoomsDatabase.execute("select id from rooms where room like ?", "#{room}").flatten
-    parent_room = RoomsDatabase.execute("select id from rooms where room like ?", "#{choice}").flatten
-    ExitsDatabase.load_structure
-    ExitsDatabase.execute("insert into exits (child_room_id,parent_room_id) values (?,?)", "#{child_room[0]}", "#{parent_room[0]}")
+  def self.insert_into_database(room, description)
+    RoomsDatabase.execute("insert into rooms (room, description) values (?,?)", "#{room}","#{description}")
   end
 
   def self.is_start_of_game?
