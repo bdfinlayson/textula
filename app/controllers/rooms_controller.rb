@@ -4,6 +4,7 @@ require 'sqlite3'
 require 'highline/import'
 require_relative '../controllers/rooms_controller'
 require_relative '../models/rooms_model'
+require_relative '../models/exits_model'
 require_relative '../../lib/rooms_database'
 require_relative '../../lib/exits_database'
 
@@ -17,7 +18,7 @@ class RoomsController
     @description = ''
     @rooms = []
     @choice = ''
-    @exit = ''
+    @direction = ''
   end
 
   def ask_for_room
@@ -36,16 +37,24 @@ class RoomsController
     puts "You created a description for #{@room}. It reads: #{@description}.\n"
   end
 
-  def ask_for_next
-    puts "What is the #{@room} next to? You can choose from: #{@rooms.join(', ')}.\n"
+  def ask_for_exit
+    puts "What rooms does the #{@room} lead to? You can choose from: #{@rooms.join(', ')}.\n"
   end
 
-  def splash_confirmation
-    puts "Great! The #{@room} is next to the #{@choice}!\n"
+  def splash_exit_confirmation
+    puts "Great! The #{@room} has an exit to the #{@choice}!\n"
   end
 
   def splash_wrong
     puts "Sorry, #{@choice} is not something I recognize.\n"
+  end
+
+  def ask_for_direction
+    puts "The exit from the #{@room} to the #{@choice} is in which direction? (e.g., 'north', 'south', 'east', 'west')\n"
+  end
+
+  def splash_exit_direction_confirmation
+    puts "Awesome! The #{@room} has a #{@direction} exit that leads to the #{@choice}!\n"
   end
 
   def start
@@ -73,15 +82,23 @@ class RoomsController
     splash_new_description
     sleep 1.2
     @rooms = RoomsModel.get_rooms
-    ask_for_next
+    ask_for_exit
     @choice = STDIN.gets.chomp
+    confirm_choice_in_database_and_insert
+    ask_for_direction
+    @direction = STDIN.gets.chomp
+    insert_exit_into_database
+    splash_exit_direction_confirmation
   end
 
-  def give_confirmation
+  def insert_exit_into_database
+    ExitsModel.set_exit(@choice, @room, @direction)
+  end
+
+  def confirm_choice_in_database_and_insert
     if @rooms.include?(@choice)
-      RoomsModel.set_exit(@choice, @room)
-      splash_confirmation
-      @exit = @choice
+      RoomsModel.insert_into_database(@room, @description)
+      splash_exit_confirmation
     else
       splash_wrong
     end
