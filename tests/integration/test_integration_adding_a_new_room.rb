@@ -10,6 +10,7 @@ class AddingANewRoomTest < Minitest::Test
       expected_output = main_menu
       pipe.puts "1"
       expected_output << "Welcome to the room creator!\n"
+      expected_output << "Your game currently has the following rooms: living room.\n"
       expected_output << "What is the name of the room you want to add.\n"
       pipe.puts "kitchen"
       expected_output << "You created a kitchen.\n"

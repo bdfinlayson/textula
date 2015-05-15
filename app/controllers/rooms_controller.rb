@@ -21,6 +21,10 @@ class RoomsController
     @direction = ''
   end
 
+  def list_current_rooms
+    puts "Your game currently has the following rooms: #{@rooms.join(', ')}.\n"
+  end
+
   def ask_for_room
     puts "What is the name of the room you want to add.\n"
   end
@@ -70,6 +74,9 @@ class RoomsController
 
   def run_program
     sleep 1.2
+    @rooms = RoomsModel.get_rooms
+    list_current_rooms
+    sleep 1.2
     ask_for_room
     @room = STDIN.gets.chomp
     sleep 1.2
@@ -79,7 +86,6 @@ class RoomsController
     @description = STDIN.gets.chomp
     splash_new_description
     sleep 1.2
-    @rooms = RoomsModel.get_rooms
     ask_for_exit
     @choice = STDIN.gets.chomp
     confirm_choice_in_database_and_insert
