@@ -1,5 +1,7 @@
 require 'sqlite3'
 require_relative '../../lib/rooms_database'
+require_relative '../../lib/exits_database'
+
 
 class RoomsModel
 
@@ -7,13 +9,19 @@ class RoomsModel
     RoomsDatabase.execute("select room from rooms").flatten
   end
 
-  def self.update_database(room, description, next_to)
-    RoomsDatabase.execute("insert into rooms (room, description, next_to) values ('#{room}','#{description}','#{next_to}')")
+  def self.get_all_rooms_info
+    RoomsDatabase.execute("select room, description from rooms")
   end
 
-  def self.get_relation(choice, room)
-    relation = RoomsDatabase.execute("select room from rooms where room like ?", "#{choice}").flatten
-    RoomsDatabase.execute("update rooms set next_to = '#{relation[relation.index(choice)]}' where room = '#{room}'")
+  def self.update_database(room, description)
+    RoomsDatabase.execute("insert into rooms (room, description) values (?,?)", "#{room},#{description}")
+  end
+
+  def self.set_exit(choice, room)
+    child_room = RoomsDatabase.execute("select id from rooms where room like ?", "#{room}").flatten
+    parent_room = RoomsDatabase.execute("select id from rooms where room like ?", "#{choice}").flatten
+    ExitsDatabase.load_structure
+    ExitsDatabase.execute("insert into exits (child_room_id,parent_room_id) values (?,?)", "#{child_room[0]}", "#{parent_room[0]}")
   end
 
   def self.is_start_of_game?
