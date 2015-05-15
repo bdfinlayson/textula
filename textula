@@ -6,6 +6,7 @@ require_relative 'app/controllers/rooms_controller'
 menu_prompt = "1. Add room\n2. Quit\n"
 input = ARGV
 
+
 if input.size == 1 and input[0] == 'manage'
   choose do |menu|
     menu.prompt = ""
