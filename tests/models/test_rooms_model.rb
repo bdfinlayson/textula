@@ -21,6 +21,7 @@ describe RoomsController do
       it "should return all the room info for all rooms in the order they were entered" do
         expected = [["kitchen","A nice place to eat"],["bedroom","Large enough for a kingsized bed"],["bathroom","The toilet could use a cleaning"]]
         actual = RoomsController.new.all
+        clear_rooms_table
         assert_equal expected, actual
       end
     end
