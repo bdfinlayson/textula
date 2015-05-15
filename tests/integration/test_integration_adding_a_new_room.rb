@@ -1,8 +1,10 @@
 require_relative '../test_helper'
+require 'sqlite3'
 
 class AddingANewRoomTest < Minitest::Test
 
   def test_integration_adding_a_new_room_0a_manage_argument_given_then_add_room?
+    clear_table
     shell_output = ''
     expected_output = ''
     IO.popen(' ./textula manage', 'r+') do |pipe|
@@ -13,8 +15,8 @@ class AddingANewRoomTest < Minitest::Test
       pipe.puts "kitchen"
       expected_output << "You created a kitchen.\n"
       expected_output << "What is the description of your kitchen.\n"
-      pipe.puts "A quiet place to read. You see a fireplace in one corner"
-      expected_output << "You created a description for kitchen. It reads: A quiet place to read. You see a fireplace in one corner.\n"
+      pipe.puts "It is barely large enough for two people"
+      expected_output << "You created a description for kitchen. It reads: It is barely large enough for two people.\n"
       expected_output << "What is the kitchen next to? You can choose from: living room.\n"
       pipe.puts "living room"
       expected_output << "Great! The kitchen is next to the living room!\n"

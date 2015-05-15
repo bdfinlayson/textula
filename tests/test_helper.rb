@@ -12,17 +12,19 @@ Minitest::Reporters.use!
 [Minitest::Reporters::DefaultReporter.new(reporter_options)]
 
 class Minitest::Test
-def setup
-  Database.load_structure
-  Database.execute("delete from rooms")
-end
-end
+  def setup
+    RoomsDatabase.load_structure
+  end
 
-def create_room(room,description)
-  Database.execute("insert into rooms (room,description) values (?,?)", room, description)
-end
+  def clear_table
+    RoomsDatabase.execute("delete from rooms")
+  end
 
-def main_menu
-  "1. Add room\n2. Quit\n"
-end
+  def create_room(room,description)
+    RoomsDatabase.execute("insert into rooms (room,description) values (?,?)", room, description)
+  end
 
+  def main_menu
+    "1. Add room\n2. Quit\n"
+  end
+end
