@@ -2,7 +2,6 @@
 
 require 'sqlite3'
 require 'highline/import'
-require_relative '../controllers/rooms_controller'
 require_relative '../models/rooms_model'
 require_relative '../models/exits_model'
 require_relative '../../lib/database'

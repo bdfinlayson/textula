@@ -11,4 +11,8 @@ class GameModel
     Database.execute("select count(id) from games")[0][0]
   end
 
+  def self.get_id(name)
+    Database.execute("select id from games where name like ?", name)
+  end
+
 end

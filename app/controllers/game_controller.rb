@@ -1,7 +1,7 @@
 require_relative '../models/game_model'
 
 class GameController
-  attr_accessor :player_name, :game_name, :game_description
+  attr_accessor :player_name, :game_name, :game_description, :game_id
 
   def initialize
     @player_name = ''
@@ -31,6 +31,8 @@ class GameController
     ask_for_game_description
     @game_description = STDIN.gets.chomp
     sleep 1.2
+    add_new_game
+    @game_id = get_game_id
   end
 
   def add_new_game
@@ -39,5 +41,9 @@ class GameController
 
   def count
     GameModel.count
+  end
+
+  def get_game_id
+    GameModel.get_id(@game_name)
   end
 end
