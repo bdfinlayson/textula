@@ -13,22 +13,22 @@ Minitest::Reporters.use!
 
 class Minitest::Test
   def setup
-    RoomsDatabase.load_structure
+    Database.load_structure
   end
 
   def clear_rooms_table
-    RoomsDatabase.execute("delete from rooms")
+    Database.execute("delete from rooms")
   end
 
   def clear_exits_table
-    ExitsDatabase.execute("delete from exits")
+    Database.execute("delete from exits")
   end
 
   def create_room(room,description)
-    RoomsDatabase.execute("insert into rooms (room,description) values (?,?)", room, description)
+    Database.execute("insert into rooms (room,description) values (?,?)", room, description)
   end
 
   def main_menu
-    "1. Add room\n2. Quit\n"
+    "1. Play Game\n2. Add room\n3. Quit\n"
   end
 end

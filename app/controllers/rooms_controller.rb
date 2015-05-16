@@ -5,15 +5,14 @@ require 'highline/import'
 require_relative '../controllers/rooms_controller'
 require_relative '../models/rooms_model'
 require_relative '../models/exits_model'
-require_relative '../../lib/rooms_database'
-require_relative '../../lib/exits_database'
+require_relative '../../lib/database'
 
 class RoomsController
 
   attr_accessor :room, :description, :rooms, :choice
 
   def initialize
-    RoomsDatabase.load_structure
+    Database.load_structure
     @room = ''
     @description = ''
     @rooms = []
@@ -89,7 +88,7 @@ class RoomsController
   end
 
   def start
-    RoomsDatabase.load_structure
+    Database.load_structure
     if RoomsModel.is_start_of_game? > 0
       # maybe do something??
     else

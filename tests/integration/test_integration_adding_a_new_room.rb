@@ -8,7 +8,7 @@ class AddingANewRoomTest < Minitest::Test
     expected_output = ''
     IO.popen(' ./textula manage', 'r+') do |pipe|
       expected_output = main_menu
-      pipe.puts "1"
+      pipe.puts "2"
       expected_output << "Welcome to the room creator!\n"
       expected_output << "Your game currently has the following rooms: living room.\n"
       expected_output << "What is the name of the room you want to add.\n"

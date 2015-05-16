@@ -30,7 +30,7 @@ class BasicUsage < Minitest::Test
     expected_output = ''
     IO.popen(' ./textula manage', 'r+') do |pipe|
       expected_output = main_menu
-      pipe.puts "2"
+      pipe.puts "3"
       expected_output << "Thanks for playing!\n"
       pipe.close_write
       shell_output = pipe.read
