@@ -32,7 +32,11 @@ class Minitest::Test
     Database.execute("insert into rooms (room,description) values (?,?)", room, description)
   end
 
+  def start_menu
+    "1. Create New Game\n2. Open Existing Game\n3. Quit\n"
+  end
+
   def main_menu
-    "1. Create New Game\n2. Add room\n3. Play Game\n4. Quit\n"
+    "1. Add room\n2. Add Object\n3. Edit Room\n4. Edit Object\n5. Quit\n"
   end
 end

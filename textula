@@ -4,29 +4,62 @@ require 'highline/import'
 require_relative 'app/controllers/rooms_controller'
 require_relative 'app/controllers/game_controller'
 
-menu_prompt = "1. Create New Game\n2. Add room\n3. Play Game\n4. Quit\n"
+menu_prompt = "1. Create New Game\n2. Open Existing Game\n3. Quit\n"
+secondary_menu = "1. Add room\n2. Add Object\n3. Edit Room\n4. Edit Object\n5. Quit\n"
 input = ARGV
 
 
-if input.size == 1 and input[0] == 'manage'
+if input.size == 1 and input[0] == 'start'
   choose do |menu|
     menu.prompt = ""
     menu.choice('Create New Game') {
       game = GameController.new
       game.create
+      loop do
+        choose do |menu|
+          menu.prompt = ""
+          menu.choice('Add room') {
+            puts "Welcome to the room creator!\n"
+            rooms = RoomsController.new
+            rooms.start
+          }
+          menu.choice('Add object') {
+            puts "so you want to add an object?"
+          }
+          menu.choice('Play game') {
+            puts "this plays the current game!"
+          }
+          menu.choice('Quit') {
+            puts "Thanks for playing dude!"
+            exit
+          }
+        end
+      end
     }
-    menu.choice('Add room') {
-      puts "Welcome to the room creator!\n"
-      rooms = RoomsController.new
-      rooms.start
-    }
-    menu.prompt = ""
-    menu.choice('Play Game') {
-      game = GameController.new
-      game.start
+    menu.choice('Edit Existing Game') {
+      loop do
+        choose do |menu|
+          menu.prompt = ""
+          menu.choice('Add room') {
+            puts "Welcome to the room creator!\n"
+            rooms = RoomsController.new
+            rooms.start
+          }
+          menu.choice('Add object') {
+            puts "so you want to add an object?"
+          }
+          menu.choice('Play game') {
+            puts "this plays the current game!"
+          }
+          menu.choice('Quit') {
+            puts "Thanks for playing dude!"
+            exit
+          }
+        end
+      end
     }
     menu.choice('Quit') { puts "Thanks for playing!\n" }
+      end
+  else
+    puts "[Help] Run as: ./textula start\n"
   end
-else
-  puts "[Help] Run as: ./textula manage\n"
-end
