@@ -24,11 +24,15 @@ class Minitest::Test
     Database.execute("delete from exits")
   end
 
+  def clear_exits_table
+    Database.execute("delete from games")
+  end
+
   def create_room(room,description)
     Database.execute("insert into rooms (room,description) values (?,?)", room, description)
   end
 
   def main_menu
-    "1. Play Game\n2. Add room\n3. Quit\n"
+    "1. Create New Game\n2. Add room\n3. Play Game\n4. Quit\n"
   end
 end

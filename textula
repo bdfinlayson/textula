@@ -2,22 +2,28 @@
 
 require 'highline/import'
 require_relative 'app/controllers/rooms_controller'
+require_relative 'app/controllers/game_controller'
 
-menu_prompt = "1. Play Game\n2. Add room\n3. Quit\n"
+menu_prompt = "1. Create New Game\n2. Add room\n3. Play Game\n4. Quit\n"
 input = ARGV
 
 
 if input.size == 1 and input[0] == 'manage'
   choose do |menu|
     menu.prompt = ""
-    menu.choice('Play Game') {
+    menu.choice('Create New Game') {
       game = GameController.new
-      game.start
+      game.create
     }
     menu.choice('Add room') {
       puts "Welcome to the room creator!\n"
       rooms = RoomsController.new
       rooms.start
+    }
+    menu.prompt = ""
+    menu.choice('Play Game') {
+      game = GameController.new
+      game.start
     }
     menu.choice('Quit') { puts "Thanks for playing!\n" }
   end
