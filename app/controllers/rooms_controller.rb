@@ -113,7 +113,7 @@ class RoomsController
     sleep 1.2
     ask_for_exit
     @choice = STDIN.gets.chomp
-    confirm_choice_in_database_and_insert
+    confirm_choice_in_database
     sleep 1.2
     ask_for_direction
     @direction = STDIN.gets.chomp
@@ -135,15 +135,21 @@ class RoomsController
     @exits_prefix = STDIN.gets.chomp
     sleep 1.2
     splash_exits_prefix_confirmation
+    sleep 1.2
+    puts "To add another room, please choose 'Add room' from the main menu. To play the game, please choose 'Play game'.\n"
+    add_room
   end
 
   def insert_exit_into_database
     ExitsModel.set_exit(@choice, @room, @direction)
   end
 
-  def confirm_choice_in_database_and_insert
+  def add_room
+    RoomsModel.insert_into_database(@game_id, @room, @description,@description_prefix,@objects_list_prefix,@exits_prefix)
+  end
+
+  def confirm_choice_in_database
     if @rooms.include?(@choice)
-      RoomsModel.insert_into_database(@room, @description)
       splash_exit_confirmation
     else
       splash_wrong

@@ -1,4 +1,4 @@
-require_relative '../models/game_model'
+require_relative '../models/games_model'
 
 class GameController
   attr_accessor :player_name, :game_name, :game_description, :game_id
@@ -9,27 +9,21 @@ class GameController
     @game_description = ''
   end
 
-  def ask_for_name
-    puts "Please state your name.\n"
-  end
-
-  def ask_for_game_name
-    puts "Welcome to the game creator! What is the name of your game?\n"
-  end
-
-  def ask_for_game_description
-    puts "Please add a description for your game.\n"
-  end
-
   def create
-    ask_for_game_name
-    @game_name = STDIN.gets.chomp
-    sleep 1.2
-    ask_for_name
+    puts "For starters, please enter your name.\n"
     @player_name = STDIN.gets.chomp
     sleep 1.2
-    ask_for_game_description
+    puts "Nice to meet you, #{@player_name}!\n"
+    sleep 1.2
+    puts "What's the name of your game?\n"
+    @game_name = STDIN.gets.chomp
+    sleep 1.2
+    puts "#{@game_name} sounds like an awesome game!\n"
+    sleep 1.2
+    puts "Please add a description for Nashville Adventure. For example, you could say 'adventure-fantasy'.\n"
     @game_description = STDIN.gets.chomp
+    sleep 1.2
+    puts "Great! Please use the following menu options to further customize Nashville Adventure!\n"
     sleep 1.2
     add_new_game
     @game_id = get_game_id

@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
 require 'highline/import'
-require_relative 'app/controllers/rooms_controller'
-require_relative 'app/controllers/game_controller'
+Dir["./app/**/*.rb"].each { |file| require file }
+Dir["./lib/*.rb"].each { |file| require file }
 
 menu_prompt = "1. Create New Game\n2. Open Existing Game\n3. Quit\n"
 secondary_menu = "1. Add room\n2. Add Object\n3. Edit Room\n4. Edit Object\n5. Quit\n"
@@ -13,6 +13,7 @@ if input.size == 1 and input[0] == 'start'
   choose do |menu|
     menu.prompt = ""
     menu.choice('Create New Game') {
+      puts "Welcome to Textula! The Textula game engine will now walk you through creating your own text-adventure game! So lets get started!\n"
       game = GameController.new
       game.create
       loop do
@@ -26,11 +27,17 @@ if input.size == 1 and input[0] == 'start'
           menu.choice('Add object') {
             puts "so you want to add an object?"
           }
+          menu.choice('Edit room') {
+            puts "so you want to add an object?"
+          }
+          menu.choice('Edit object') {
+            puts "so you want to add an object?"
+          }
           menu.choice('Play game') {
             puts "this plays the current game!"
           }
           menu.choice('Quit') {
-            puts "Thanks for playing dude!"
+            puts "Thanks for playing!"
             exit
           }
         end
@@ -48,15 +55,24 @@ if input.size == 1 and input[0] == 'start'
           menu.choice('Add object') {
             puts "so you want to add an object?"
           }
+          menu.choice('Edit room') {
+            puts "so you want to add an object?"
+          }
+          menu.choice('Edit object') {
+            puts "so you want to add an object?"
+          }
           menu.choice('Play game') {
             puts "this plays the current game!"
           }
           menu.choice('Quit') {
-            puts "Thanks for playing dude!"
+            puts "Thanks for playing!"
             exit
           }
         end
       end
+    }
+    menu.choice('Play Saved Game') {
+      puts "this finds all available games and lets you pick which ones to play!"
     }
     menu.choice('Quit') { puts "Thanks for playing!\n" }
       end

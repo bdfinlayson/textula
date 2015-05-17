@@ -6,9 +6,21 @@ class AddingANewRoomTest < Minitest::Test
   def test_integration_adding_a_new_room_0a_manage_argument_given_then_add_room?
     shell_output = ''
     expected_output = ''
-    IO.popen(' ./textula manage', 'r+') do |pipe|
-      expected_output = main_menu
-      pipe.puts "2"
+    IO.popen(' ./textula start', 'r+') do |pipe|
+      expected_output = start_menu
+      pipe.puts "1"
+      expected_output << "Welcome to Textula! The Textula game engine will now walk you through creating your own text-adventure game! So lets get started!\n"
+      expected_output << "For starters, please enter your name.\n"
+      pipe.puts "Bryan"
+      expected_output << "Nice to meet you, Bryan!\n"
+      expected_output << "What's the name of your game?\n"
+      pipe.puts "Nashville Adventure"
+      expected_output << "Nashville Adventure sounds like an awesome game!\n"
+      expected_output << "Please add a description for Nashville Adventure. For example, you could say 'adventure-fantasy'.\n"
+      pipe.puts "adventure-fantasy"
+      expected_output << "Great! Please use the following menu options to further customize Nashville Adventure!\n"
+      expected_output << main_menu
+      pipe.puts "1"
       expected_output << "Welcome to the room creator!\n"
       expected_output << "Your game currently has the following rooms: living room.\n"
       expected_output << "What is the name of the room you want to add.\n"
@@ -32,6 +44,10 @@ class AddingANewRoomTest < Minitest::Test
       expected_output << "Please enter an exits prefix for the exits in your room. (e.g., 'You can go')\n"
       pipe.puts "You can go"
       expected_output << "Marvelous! Your exit prefix will read like this: You can go north.\n"
+      expected_output << "To add another room, please choose 'Add room' from the main menu. To play the game, please choose 'Play game'.\n"
+      expected_output << main_menu
+      pipe.puts "6"
+      expected_output << "Thanks for playing!\n"
       pipe.close_write
       shell_output = pipe.read
       pipe.close_read

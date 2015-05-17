@@ -1,5 +1,5 @@
+require_relative '../../app/controllers/games_controller'
 require_relative '../test_helper'
-require_relative '../../app/controllers/game_controller'
 
 describe GameController do
   describe '.add_new_game' do
