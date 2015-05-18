@@ -38,7 +38,8 @@ describe GamesController do
       controller.game_description = "A game of cunning and adventure!"
       controller.add_new_game
       controller.play
-      assert_equal "Bryan", Database.execute("select player_name from players limit 1")[0][0]
+      name = Database.execute("select player_name from players limit 1")
+      assert_equal "Bryan",name[0][0]
     end
   end
 end
