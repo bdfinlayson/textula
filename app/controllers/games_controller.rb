@@ -23,10 +23,10 @@ class GamesController
     sleep 1.2
     puts "#{@game_name} sounds like an awesome game!\n"
     sleep 1.2
-    puts "Please add a description for Nashville Adventure. For example, you could say 'adventure-fantasy'.\n"
+    puts "Please add a description for #{@game_name}. For example, you could say 'adventure-fantasy'.\n"
     @game_description = STDIN.gets.chomp
     sleep 1.2
-    puts "Great! Please use the following menu options to further customize Nashville Adventure!\n"
+    puts "Great! Please use the following menu options to further customize #{@game_name}!\n"
     sleep 1.2
     add_new_game
     @game_id = get_game_id
@@ -46,10 +46,12 @@ class GamesController
 
   def play
     PlayersController.new(@game_id, DEFAULT_START_LOCATION, @player_name)
+    puts "Loading #{@game_name}...\n"
     game_loop
   end
 
   def game_loop
+
 
   end
 end
