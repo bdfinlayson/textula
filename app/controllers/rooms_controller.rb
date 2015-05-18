@@ -145,7 +145,7 @@ class RoomsController
   end
 
   def add_room
-    RoomsModel.insert_into_database(@game_id, @room, @description,@description_prefix,@objects_list_prefix,@exits_prefix)
+    RoomsModel.create(@game_id, @room, @description,@description_prefix,@objects_list_prefix,@exits_prefix)
   end
 
   def confirm_choice_in_database

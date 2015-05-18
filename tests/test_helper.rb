@@ -16,6 +16,13 @@ class Minitest::Test
     Database.load_structure
   end
 
+  def clear_all
+    Database.execute("delete from players")
+    Database.execute("delete from games")
+    Database.execute("delete from exits")
+    Database.execute("delete from rooms")
+  end
+
   def clear_rooms_table
     Database.execute("delete from rooms")
   end

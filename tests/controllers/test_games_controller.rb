@@ -3,7 +3,7 @@ require_relative '../test_helper'
 
 describe GamesController do
   describe '.add_new_game' do
-    let(:x) {Minitest.clear_games_table}
+    let(:x) {Minitest.clear_all}
     let(:controller) {GamesController.new}
     it "should add a game to the game table" do
       controller.game_name = "Nashville Adventure"
@@ -15,7 +15,7 @@ describe GamesController do
   end
 
   describe '.get_game_id' do
-    let(:x) {Minitest.clear_games_table}
+    let(:x) {Minitest.clear_all}
     let(:controller) {GamesController.new}
     it "should get the id for the current game" do
       controller.game_name = "Nashville Adventure"

@@ -4,6 +4,7 @@ require 'sqlite3'
 class PlayingGameTest < Minitest::Test
 
   def test_integration_0a_playing_a_simple_game
+    clear_all
     shell_output = ''
     expected_output = ''
     IO.popen(' ./textula start', 'r+') do |pipe|
@@ -69,10 +70,7 @@ class PlayingGameTest < Minitest::Test
       pipe.close_write
       shell_output = pipe.read
       pipe.close_read
-      clear_rooms_table
-      clear_exits_table
-      clear_games_table
-      clear_players_table
+      clear_all
     end
     assert_equal expected_output, shell_output
   end

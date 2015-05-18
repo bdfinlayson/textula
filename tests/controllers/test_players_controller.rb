@@ -3,7 +3,7 @@ require_relative '../../app/controllers/games_controller'
 
 describe PlayersController do
 #  describe '.create_new_player' do
-#    let(:x) {Minitest.clear_players_table}
+#    let(:x) {Minitest.clear_all}
 #    let(:controller) {PlayersController.new}
 #    let(:games) {GamesController.new}
 #    it "should add a player to the players table" do
@@ -16,7 +16,7 @@ describe PlayersController do
 #  end
 #
 #  describe '.get_game_id' do
-#    let(:x) {Minitest.clear_games_table}
+#    let(:x) {Minitest.clear_all}
 #    let(:controller) {GameController.new}
 #    it "should get the id for the current game" do
 #      controller.game_name = "Nashville Adventure"

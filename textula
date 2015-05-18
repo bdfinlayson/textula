@@ -13,7 +13,12 @@ if input.size == 1 and input[0] == 'start'
   choose do |menu|
     menu.prompt = ""
     menu.choice('Create New Game') {
-      puts "Welcome to Textula! The Textula game engine will now walk you through creating your own text-adventure game! So lets get started!\n"
+      sleep 1.2
+      puts "Welcome to Textula!\n"
+      sleep 1.2
+      puts "The Textula game engine will now walk you through creating your own text-adventure game!\n"
+      sleep 1.2
+      puts "So lets get started!\n"
       game = GamesController.new
       game.create
       loop do
@@ -28,10 +33,10 @@ if input.size == 1 and input[0] == 'start'
             puts "so you want to add an object?"
           }
           menu.choice('Edit room') {
-            puts "so you want to add an object?"
+            puts "so you want to edit a room?"
           }
           menu.choice('Edit object') {
-            puts "so you want to add an object?"
+            puts "so you want to edit an object?"
           }
           menu.choice('Play game') {
             puts "this plays the current game!"
@@ -56,10 +61,10 @@ if input.size == 1 and input[0] == 'start'
             puts "so you want to add an object?"
           }
           menu.choice('Edit room') {
-            puts "so you want to add an object?"
+            puts "so you want to edit a room?"
           }
           menu.choice('Edit object') {
-            puts "so you want to add an object?"
+            puts "so you want to edit an object?"
           }
           menu.choice('Play game') {
             puts "this plays the current game!"
@@ -75,7 +80,7 @@ if input.size == 1 and input[0] == 'start'
       puts "this finds all available games and lets you pick which ones to play!"
     }
     menu.choice('Quit') { puts "Thanks for playing!\n" }
-      end
-  else
-    puts "[Help] Run as: ./textula start\n"
   end
+else
+  puts "[Help] Run as: ./textula start\n"
+end

@@ -4,12 +4,15 @@ require 'sqlite3'
 class AddingANewRoomTest < Minitest::Test
 
   def test_integration_adding_a_new_room_0a_manage_argument_given_then_add_room?
+    clear_all
     shell_output = ''
     expected_output = ''
     IO.popen(' ./textula start', 'r+') do |pipe|
       expected_output = start_menu
       pipe.puts "1"
-      expected_output << "Welcome to Textula! The Textula game engine will now walk you through creating your own text-adventure game! So lets get started!\n"
+      expected_output << "Welcome to Textula!\n"
+      expected_output << "The Textula game engine will now walk you through creating your own text-adventure game!\n"
+      expected_output << "So lets get started!\n"
       expected_output << "For starters, please enter your name.\n"
       pipe.puts "Bryan"
       expected_output << "Nice to meet you, Bryan!\n"
@@ -51,8 +54,7 @@ class AddingANewRoomTest < Minitest::Test
       pipe.close_write
       shell_output = pipe.read
       pipe.close_read
-      clear_rooms_table
-      clear_exits_table
+      clear_all
     end
     assert_equal expected_output, shell_output
   end

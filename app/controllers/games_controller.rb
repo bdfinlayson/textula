@@ -6,10 +6,12 @@ class GamesController
   def initialize
     @player_name = ''
     @game_name = ''
+    @game_id = ''
     @game_description = ''
   end
 
   def create
+    sleep 1.2
     puts "For starters, please enter your name.\n"
     @player_name = STDIN.gets.chomp
     sleep 1.2
@@ -30,7 +32,7 @@ class GamesController
   end
 
   def add_new_game
-    GamesModel.add(@game_name,@player_name,@game_description)
+    GamesModel.create(@game_name,@player_name,@game_description)
   end
 
   def count
@@ -39,5 +41,9 @@ class GamesController
 
   def get_game_id
     GamesModel.get_id(@game_name)
+  end
+
+  def play
+
   end
 end
