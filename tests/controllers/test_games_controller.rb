@@ -1,4 +1,6 @@
 require_relative '../../app/controllers/games_controller'
+require_relative '../../app/controllers/players_controller'
+require_relative '../../lib/database'
 require_relative '../test_helper'
 
 describe GamesController do
@@ -24,6 +26,19 @@ describe GamesController do
       controller.add_new_game
       controller.game_id = controller.get_game_id
       assert_equal controller.game_id, GamesModel.get_id(controller.game_name)
+    end
+  end
+
+  describe '.play' do
+    let(:x) {Minitest.clear_all}
+    let(:controller) {GamesController.new}
+    it "playing a game should initialize a new player" do
+      controller.game_name = "Nashville Adventure"
+      controller.player_name = "Bryan"
+      controller.game_description = "A game of cunning and adventure!"
+      controller.add_new_game
+      controller.play
+      assert_equal "Bryan", Database.execute("select player_name from players limit 1")[0][0]
     end
   end
 end

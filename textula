@@ -39,7 +39,7 @@ if input.size == 1 and input[0] == 'start'
             puts "so you want to edit an object?"
           }
           menu.choice('Play game') {
-            puts "this plays the current game!"
+            game.play
           }
           menu.choice('Quit') {
             puts "Thanks for playing!"
