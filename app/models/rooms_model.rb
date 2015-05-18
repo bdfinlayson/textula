@@ -20,8 +20,16 @@ class RoomsModel
     Database.execute("select count(id) from rooms")[0][0]
   end
 
-  def self.create_default_starting_room
-    Database.execute("insert into rooms(room, description) values ('living room', 'A quiet place to read. You see a fireplace in one corner.')")
+  def self.add_placeholder(game_id, room)
+    Database.execute("insert into rooms (game_id, room) values (?,?)", game_id, room)
+  end
+
+  def self.create(game_id, room, description, description_prefix, objects_prefix, exits_prefix)
+    Database.execute("insert into rooms (game_id, room, description, description_prefix, objects_prefix, exits_prefix) values (?,?,?,?,?,?)", game_id, room, description, description_prefix, objects_prefix, exits_prefix)
+  end
+
+  def self.insert_follow_up(room, description, description_prefix, objects_prefix, exits_prefix)
+    Database.execute("update rooms set description=?, description_prefix=?, objects_prefix=?, exits_prefix=? where room=?",description,description_prefix,objects_prefix,exits_prefix,room)
   end
 
 end
