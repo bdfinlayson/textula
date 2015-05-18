@@ -1,7 +1,7 @@
 require 'sqlite3'
 require_relative '../../lib/database'
 
-class GameModel
+class GamesModel
 
   def self.add(game_name, player_name, game_description)
     Database.execute("insert into games (name,player,description) values (?,?,?)", game_name,player_name,game_description)

@@ -14,7 +14,7 @@ if input.size == 1 and input[0] == 'start'
     menu.prompt = ""
     menu.choice('Create New Game') {
       puts "Welcome to Textula! The Textula game engine will now walk you through creating your own text-adventure game! So lets get started!\n"
-      game = GameController.new
+      game = GamesController.new
       game.create
       loop do
         choose do |menu|

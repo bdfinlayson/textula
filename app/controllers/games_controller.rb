@@ -1,6 +1,6 @@
 require_relative '../models/games_model'
 
-class GameController
+class GamesController
   attr_accessor :player_name, :game_name, :game_description, :game_id
 
   def initialize
@@ -30,14 +30,14 @@ class GameController
   end
 
   def add_new_game
-    GameModel.add(@game_name,@player_name,@game_description)
+    GamesModel.add(@game_name,@player_name,@game_description)
   end
 
   def count
-    GameModel.count
+    GamesModel.count
   end
 
   def get_game_id
-    GameModel.get_id(@game_name)
+    GamesModel.get_id(@game_name)
   end
 end
