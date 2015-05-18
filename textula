@@ -13,11 +13,8 @@ if input.size == 1 and input[0] == 'start'
   choose do |menu|
     menu.prompt = ""
     menu.choice('Create New Game') {
-      sleep 1.2
       puts "Welcome to Textula!\n"
-      sleep 1.2
       puts "The Textula game engine will now walk you through creating your own text-adventure game!\n"
-      sleep 1.2
       puts "So lets get started!\n"
       game = GamesController.new
       game.create
@@ -27,7 +24,7 @@ if input.size == 1 and input[0] == 'start'
           menu.choice('Add room') {
             puts "Welcome to the room creator!\n"
             rooms = RoomsController.new
-            rooms.start
+            rooms.start(game.game_id)
           }
           menu.choice('Add object') {
             puts "so you want to add an object?"
