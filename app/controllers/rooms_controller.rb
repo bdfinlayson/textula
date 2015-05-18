@@ -5,10 +5,11 @@ require 'highline/import'
 require_relative '../models/rooms_model'
 require_relative '../models/exits_model'
 require_relative '../../lib/database'
+require_relative 'games_controller'
 
 class RoomsController
 
-  attr_accessor :room, :description, :rooms, :choice
+  attr_accessor :room, :description, :rooms, :choice, :game_id
 
   def initialize
     Database.load_structure
@@ -20,6 +21,8 @@ class RoomsController
     @description_prefix = ''
     @objects_list_prefix = ''
     @exits_prefix = ''
+    @opposite_direction = ''
+    @game_id = ''
   end
 
   def list_current_rooms
@@ -39,7 +42,7 @@ class RoomsController
   end
 
   def splash_new_description
-    puts "You created a description for #{@room}. It reads: #{@description}.\n"
+    puts "You created a description for the #{@room}. It reads: #{@description}.\n"
   end
 
   def ask_for_exit
@@ -86,58 +89,99 @@ class RoomsController
     puts "Marvelous! Your exit prefix will read like this: #{@exits_prefix} #{@direction}.\n"
   end
 
-  def start
+  def start(game_id)
+    @game_id = game_id
     Database.load_structure
-    if RoomsModel.is_start_of_game? > 0
-      # maybe do something??
-    else
-      # create default room
-      RoomsModel.create_default_starting_room
-    end
     run_program
   end
 
   def run_program
-    sleep 1.2
     @rooms = RoomsModel.get_rooms
-    list_current_rooms
-    sleep 1.2
+    if @rooms.empty?
+      puts "Your game currently has no rooms.\n"
+    else
+      list_current_rooms
+    end
     ask_for_room
     @room = STDIN.gets.chomp
-    sleep 1.2
     splash_new_room
-    sleep 1.2
     ask_for_description
     @description = STDIN.gets.chomp
     splash_new_description
-    sleep 1.2
-    ask_for_exit
-    @choice = STDIN.gets.chomp
-    confirm_choice_in_database
-    sleep 1.2
-    ask_for_direction
-    @direction = STDIN.gets.chomp
-    insert_exit_into_database
-    sleep 1.2
-    splash_exit_direction_confirmation
-    sleep 1.2
+    if @rooms.empty?
+      puts "What rooms does the #{@room} lead to? You currently have no rooms to choose from, but you can go ahead and declare a room now!\n"
+      @choice = STDIN.gets.chomp
+      puts "Great! The #{@room} has an exit to the #{@choice}! In a moment we will ask you for more information about the room called #{@choice}!\n"
+      ask_for_direction
+      @direction = STDIN.gets.chomp
+      puts "And the opposite direction of #{@direction} is what?\n"
+      @opposite_direction = STDIN.gets.chomp
+      puts "Awesome! The #{@room} has a #{@direction} exit that leads to the #{@choice}!\n"
+      puts "The #{@choice} also has a #{@opposite_direction} exit that leads to the #{@room}!\n"
+    else
+      ask_for_exit
+      @choice = STDIN.gets.chomp
+      confirm_choice_in_database
+      ask_for_direction
+      @direction = STDIN.gets.chomp
+      puts "And the opposite direction of #{@direction} is what?\n"
+      @opposite_direction = STDIN.gets.chomp
+      splash_exit_direction_confirmation
+      puts "The #{@choice} also has a #{@opposite_direction} exit that leads to the #{@room}!\n"
+    end
     ask_for_description_prefix
     @description_prefix = STDIN.gets.chomp
-    sleep 1.2
     splash_description_prefix_confirmation
-    sleep 1.2
     ask_for_objects_list_prefix
     @objects_list_prefix = STDIN.gets.chomp
-    sleep 1.2
     splash_objects_list_prefix_confirmation
-    sleep 1.2
     ask_for_exits_prefix
     @exits_prefix = STDIN.gets.chomp
-    sleep 1.2
     splash_exits_prefix_confirmation
-    sleep 1.2
+    if @rooms.empty?
+      add_choice_room
+      add_room
+      insert_choice_room_exit_into_database
+      insert_exit_into_database
+      ask_follow_up_questions
+    else
+      add_room
+      insert_exit_into_database
+      insert_choice_room_exit_into_database
+      puts "To add another room, please choose 'Add room' from the main menu. To play the game, please choose 'Play game'.\n"
+    end
+  end
+
+  def ask_follow_up_questions
+    puts "Earlier you created a room called #{@choice} that did not exist previously. Please add more information about this room.\n"
+    puts "What is the description of your #{@choice}?\n"
+    @description = STDIN.gets.chomp
+    puts "You created a description for #{@choice}. It reads: #{@description}.\n"
+    puts "The #{@choice} already has a #{@opposite_direction} exit that leads to the #{@room}.\n"
+    ask_for_description_prefix
+    @description_prefix = STDIN.gets.chomp
+    puts "Excellent! Your description prefix will read like this: #{@description_prefix} #{@choice}.\n"
+    ask_for_objects_list_prefix
+    @objects_list_prefix = STDIN.gets.chomp
+    splash_objects_list_prefix_confirmation
+    ask_for_exits_prefix
+    @exits_prefix = STDIN.gets.chomp
+    puts "Marvelous! Your exit prefix will read like this: #{@exits_prefix} #{@opposite_direction}.\n"
     puts "To add another room, please choose 'Add room' from the main menu. To play the game, please choose 'Play game'.\n"
-    add_room
+    insert_follow_up
+  end
+
+  def insert_follow_up
+    RoomsModel.insert_follow_up(@choice,@description,@description_prefix, @objects_list_prefix, @exits_prefix)
+  end
+
+  def add_choice_room
+    RoomsModel.add_placeholder(@game_id[0][0].to_i, @choice)
+  end
+
+
+  def insert_choice_room_exit_into_database
+    ExitsModel.set_exit(@room, @choice,@opposite_direction)
   end
 
   def insert_exit_into_database
@@ -145,7 +189,7 @@ class RoomsController
   end
 
   def add_room
-    RoomsModel.create(@game_id, @room, @description,@description_prefix,@objects_list_prefix,@exits_prefix)
+    RoomsModel.create(@game_id[0][0].to_i, @room, @description,@description_prefix,@objects_list_prefix,@exits_prefix)
   end
 
   def confirm_choice_in_database
