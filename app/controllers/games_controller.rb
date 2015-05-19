@@ -50,7 +50,7 @@ class GamesController
 
   def get_start_location
     location = RoomsModel.get_start_location(@game_id)
-    location[0][0]
+    location[1][0]
   end
 
   def game_loop
