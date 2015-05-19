@@ -215,10 +215,10 @@ class RoomsController
     RoomsModel.get_all_rooms_info
   end
 
-  def count
+  def count(id)
     #if there are no rooms in the database it should return 0
     #if there are rooms it should return the correct count
-    RoomsModel.get_rooms.size
+    RoomsModel.get_rooms(id).size
   end
 
 end
