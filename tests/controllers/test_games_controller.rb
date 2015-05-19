@@ -28,18 +28,4 @@ describe GamesController do
       assert_equal controller.game_id, GamesModel.get_id(controller.game_name)
     end
   end
-
-  describe '.play' do
-    let(:x) {Minitest.clear_all}
-    let(:controller) {GamesController.new}
-    it "playing a game should initialize a new player" do
-      controller.game_name = "Nashville Adventure"
-      controller.player_name = "Bryan"
-      controller.game_description = "A game of cunning and adventure!"
-      controller.add_new_game
-      controller.play
-      name = Database.execute("select player_name from players limit 1")
-      assert_equal "Bryan",name[0][0]
-    end
-  end
 end
