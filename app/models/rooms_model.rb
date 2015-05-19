@@ -4,8 +4,8 @@ require_relative '../../lib/database'
 
 class RoomsModel
 
-  def self.get_rooms
-    Database.execute("select room from rooms").flatten
+  def self.get_rooms(id)
+    Database.execute("select room from rooms where game_id = ?", id).flatten
   end
 
   def self.get_all_rooms_info
@@ -34,6 +34,22 @@ class RoomsModel
 
   def self.get_start_location(game_id)
     Database.execute("select id from rooms where game_id = ?", game_id)
+  end
+
+  def self.get_room_prefix(location_id)
+    Database.execute("select description_prefix from rooms where id = ?", location_id)
+  end
+
+  def self.get_room(location_id)
+    Database.execute("select room from rooms where id = ?", location_id)
+  end
+
+  def self.get_directions_prefix(location_id)
+    Database.execute("select exits_prefix from rooms where id = ?", location_id)
+  end
+
+  def self.get_description(location_id)
+    Database.execute("select description from rooms where id = ?", location_id)
   end
 
 end
