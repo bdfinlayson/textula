@@ -14,7 +14,6 @@ Minitest::Reporters.use!
 class Minitest::Test
   def setup
     Database.load_structure
-    clear_all
   end
 
   def teardown
