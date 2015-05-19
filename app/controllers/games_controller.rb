@@ -1,8 +1,9 @@
 require_relative '../models/games_model'
 require_relative '../models/rooms_model'
+require_relative '../models/exits_model'
 
 class GamesController
-  attr_accessor :player_name, :game_name, :game_description, :game_id
+  attr_accessor :player_name, :game_name, :game_description, :game_id, :player
 
   def initialize
     @player_name = ''
@@ -10,6 +11,7 @@ class GamesController
     @game_id = ''
     @game_description = ''
     @start_location = ''
+    @player = ''
   end
 
   def create
@@ -40,9 +42,10 @@ class GamesController
 
   def play
     @start_location = get_start_location
-    player = PlayersController.new(@game_id, @start_location, @player_name)
-    player.create
+    @player = PlayersController.new(@game_id, @start_location, @player_name)
+    @player.create
     puts "Loading #{@game_name}...\n"
+    game_loop
   end
 
   def get_start_location
@@ -51,6 +54,68 @@ class GamesController
   end
 
   def game_loop
+    loop do
+      room_prefix = get_room_prefix
+      room = get_room
+      puts "#{room_prefix} #{room}.\n"
+      directions_prefix = get_directions_prefix
+      directions = get_directions
+      puts "#{directions_prefix} #{directions}.\n"
+      description = get_description
+      puts "The #{room} is #{description}.\n"
+      input = STDIN.gets.chomp
+      if input == "quit"
+        puts "Thanks for playing!\n"
+        return
+      else
+        #interpret the input
+        #break the input into an array
+        input_array = input.split(' ')
+        #break the directions into an array
+        directions_array = directions.split(', ')
+        #determine which direction they want to go
+        direction = input_array.find { |d| directions_array.include?(d) }
+        if direction
+          #then find the room that corresponds with that direction
+          #and get the id of that room
+          new_location_id = find_new_location_id(direction)
+          #update the player location with that id
+          @player.location = new_location_id
+          #go to next room
+        else
+          puts "invalid direction!"
+        end
+      end
+    end
+  end
 
+  def find_new_location_id(direction)
+    id = ExitsModel.get_new_location_id(direction, @player.location)
+    id[0][0]
+  end
+
+  def get_room_prefix
+    prefix = RoomsModel.get_room_prefix(@player.location)
+    prefix[0][0]
+  end
+
+  def get_room
+    room = RoomsModel.get_room(@player.location)
+    room[0][0]
+  end
+
+  def get_directions_prefix
+    prefix = RoomsModel.get_directions_prefix(@player.location)
+    prefix[0][0]
+  end
+
+  def get_directions
+    directions = ExitsModel.get_directions(@player.location)
+    directions.flatten.join(', ')
+  end
+
+  def get_description
+    description = RoomsModel.get_description(@player.location)
+    description[0][0]
   end
 end
