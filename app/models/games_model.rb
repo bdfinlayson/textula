@@ -16,4 +16,12 @@ class GamesModel
     Database.execute("select id from games where name like ?", name)
   end
 
+  def self.get_all_games
+    Database.execute("select all name from games")
+  end
+
+  def self.find_game(name)
+    Database.execute("select * from games where name = ?", name)
+  end
+
 end

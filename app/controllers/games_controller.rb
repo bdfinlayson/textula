@@ -118,4 +118,23 @@ class GamesController
     description = RoomsModel.get_description(@player.location)
     description[0][0]
   end
+
+  def get_all_games
+    GamesModel.get_all_games
+  end
+
+  def find_game(name)
+    GamesModel.find_game(name)
+  end
+
+  def find_game_name(input, games)
+    games.at(input - 1)
+  end
+
+  def ask_for_which_game
+    games = get_all_games
+    games.each_with_index { |game, i| puts "#{i + 1}. #{game}\n"}
+    input = STDIN.gets.chomp.to_i
+    find_game_name(input,games)
+  end
 end

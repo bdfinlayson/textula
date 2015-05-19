@@ -46,6 +46,8 @@ if input.size == 1 and input[0] == 'start'
       end
     }
     menu.choice('Edit Existing Game') {
+      #game = GamesController.new
+      #game.ask_for_which_game
       loop do
         choose do |menu|
           menu.prompt = ""
