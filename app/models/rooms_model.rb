@@ -32,4 +32,8 @@ class RoomsModel
     Database.execute("update rooms set description=?, description_prefix=?, objects_prefix=?, exits_prefix=? where room=?",description,description_prefix,objects_prefix,exits_prefix,room)
   end
 
+  def self.get_start_location(game_id)
+    Database.execute("select id from rooms where game_id = ?", game_id)
+  end
+
 end

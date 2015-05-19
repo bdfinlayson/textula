@@ -1,4 +1,5 @@
 require_relative '../models/games_model'
+require_relative '../models/rooms_model'
 
 class GamesController
   attr_accessor :player_name, :game_name, :game_description, :game_id
@@ -22,7 +23,7 @@ class GamesController
     @game_description = STDIN.gets.chomp
     puts "Great! Please use the following menu options to further customize #{@game_name}!\n"
     add_new_game
-    @game_id = get_game_id
+    @game_id = get_game_id[0][0]
   end
 
   def add_new_game
@@ -39,13 +40,17 @@ class GamesController
 
   def play
     @start_location = get_start_location
-    PlayersController.new(@game_id, @start_location, @player_name)
+    player = PlayersController.new(@game_id, @start_location, @player_name)
+    player.create
     puts "Loading #{@game_name}...\n"
-    game_loop
+  end
+
+  def get_start_location
+    location = RoomsModel.get_start_location(@game_id)
+    location[0][0]
   end
 
   def game_loop
-
 
   end
 end
