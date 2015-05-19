@@ -96,7 +96,7 @@ class RoomsController
   end
 
   def run_program
-    @rooms = RoomsModel.get_rooms
+    @rooms = RoomsModel.get_rooms(@game_id)
     if @rooms.empty?
       puts "Your game currently has no rooms.\n"
     else
