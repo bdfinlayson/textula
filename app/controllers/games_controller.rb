@@ -2,13 +2,13 @@ require_relative '../models/games_model'
 
 class GamesController
   attr_accessor :player_name, :game_name, :game_description, :game_id
-  DEFAULT_START_LOCATION = "living room"
 
   def initialize
     @player_name = ''
     @game_name = ''
     @game_id = ''
     @game_description = ''
+    @start_location = ''
   end
 
   def create
@@ -38,7 +38,8 @@ class GamesController
   end
 
   def play
-    PlayersController.new(@game_id, DEFAULT_START_LOCATION, @player_name)
+    @start_location = get_start_location
+    PlayersController.new(@game_id, @start_location, @player_name)
     puts "Loading #{@game_name}...\n"
     game_loop
   end
