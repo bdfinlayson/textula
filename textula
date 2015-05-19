@@ -39,7 +39,7 @@ if input.size == 1 and input[0] == 'start'
             game.play
           }
           menu.choice('Quit') {
-            puts "Thanks for playing!"
+            puts "Thanks for playing!\n"
             exit
           }
         end

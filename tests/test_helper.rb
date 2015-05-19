@@ -14,6 +14,12 @@ Minitest::Reporters.use!
 class Minitest::Test
   def setup
     Database.load_structure
+    clear_all
+  end
+
+  def teardown
+    File.delete("db/database_test.sqlite")
+    Database.initialize_database
   end
 
   def clear_all
@@ -39,8 +45,8 @@ class Minitest::Test
     Database.execute("delete from players")
   end
 
-  def create_room(room,description)
-    Database.execute("insert into rooms (room,description) values (?,?)", room, description)
+  def create_room(id, room, description)
+    Database.execute("insert into rooms (game_id,room,description) values (?,?,?)", id, room, description)
   end
 
   def start_menu
