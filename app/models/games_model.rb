@@ -24,4 +24,16 @@ class GamesModel
     Database.execute("select * from games where name = ?", name)
   end
 
+  def self.edit_game_description(id, new_value)
+    Database.execute("update games set description = ? where id = ?", new_value, id)
+  end
+
+  def self.edit_game_name(id, new_value)
+    Database.execute("update games set name = ? where id = ?", new_value, id)
+  end
+
+  def self.delete_game(id)
+    Database.execute("delete from games where id = ?", id)
+  end
+
 end
