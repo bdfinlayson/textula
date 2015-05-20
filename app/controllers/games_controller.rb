@@ -136,7 +136,7 @@ class GamesController
     games.each_with_index { |game, i| puts "#{i + 1}. #{game}\n"}
     input = STDIN.gets.chomp.to_i
     name = find_game_name(input,games)
-    find_game(name)
+    game_info = find_game(name)
     set_game_stats(game_info)
   end
 
