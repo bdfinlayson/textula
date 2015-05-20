@@ -10,7 +10,7 @@ describe RoomsController do
         GamesModel.create("Nashville Adventure","Bryan","Adventure")
       end
       it "should return an empty array" do
-        assert_equal [], RoomsController.new.all
+        assert_equal [], RoomsController.new.all(1)
       end
     end
     describe "if there are rooms" do
@@ -23,7 +23,7 @@ describe RoomsController do
       end
       it "should return all the room info for all rooms in the order they were entered" do
         expected = [["kitchen","A nice place to eat"],["bedroom","Large enough for a kingsized bed"],["bathroom","The toilet could use a cleaning"]]
-        actual = RoomsController.new.all
+        actual = RoomsController.new.all(1)
         clear_all
         assert_equal expected, actual
       end

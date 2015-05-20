@@ -172,11 +172,11 @@ class RoomsController
   end
 
   def insert_follow_up
-    RoomsModel.insert_follow_up(@choice,@description,@description_prefix, @objects_list_prefix, @exits_prefix)
+    RoomsModel.insert_follow_up(@game_id[0][0],@choice,@description,@description_prefix, @objects_list_prefix, @exits_prefix)
   end
 
   def add_choice_room
-    RoomsModel.add_placeholder(@game_id[0][0].to_i, @choice)
+    RoomsModel.add_placeholder(@game_id[0][0], @choice)
   end
 
 
@@ -189,7 +189,7 @@ class RoomsController
   end
 
   def add_room
-    RoomsModel.create(@game_id[0][0].to_i, @room, @description,@description_prefix,@objects_list_prefix,@exits_prefix)
+    RoomsModel.create(@game_id[0][0], @room, @description,@description_prefix,@objects_list_prefix,@exits_prefix)
   end
 
   def confirm_choice_in_database
@@ -211,8 +211,8 @@ class RoomsController
     end
   end
 
-  def all
-    RoomsModel.get_all_rooms_info
+  def all(game_id)
+    RoomsModel.get_all_rooms_info(game_id)
   end
 
   def count(id)
