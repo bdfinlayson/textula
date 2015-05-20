@@ -135,6 +135,18 @@ class GamesController
     games = get_all_games
     games.each_with_index { |game, i| puts "#{i + 1}. #{game}\n"}
     input = STDIN.gets.chomp.to_i
-    find_game_name(input,games)
+    name = find_game_name(input,games)
+    find_game(name)
+    set_game_stats(game_info)
+  end
+
+  def set_game_stats(game_info)
+    @player_name = game_info[0][2]
+    @game_name = game_info[0][1]
+    @game_id = game_info[0][0]
+    @game_description = game_info[0][3]
+    @start_location = get_start_location
+    @player = PlayersController.new(@game_id, @start_location, @player_name)
+    @player.create
   end
 end

@@ -92,6 +92,4 @@ class RoomsModel
     Database.execute("select objects_prefix from rooms where id = ?", location_id)
   end
 
-
-
 end

@@ -13,7 +13,7 @@ class GamesModel
   end
 
   def self.get_id(name)
-    Database.execute("select id from games where name like ?", name)
+    Database.execute("select id from games where name = ?", name)
   end
 
   def self.get_all_games

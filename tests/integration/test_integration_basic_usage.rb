@@ -25,7 +25,7 @@ class BasicUsage < Minitest::Test
     assert_equal expected_output, shell_output
   end
 
-  def test_integration_basic_usage_0c_manage_argument_given_then_exit?
+  def test_integration_basic_usage_0c_start_argument_given_then_exit?
     shell_output = ''
     expected_output = ''
     IO.popen(' ./textula start', 'r+') do |pipe|
@@ -39,23 +39,7 @@ class BasicUsage < Minitest::Test
     assert_equal expected_output, shell_output
   end
 
-  def test_integration_basic_usage_0d_manage_argument_given_then_exit?
-    shell_output = ''
-    expected_output = ''
-    IO.popen(' ./textula start', 'r+') do |pipe|
-      expected_output = start_menu
-      pipe.puts "2"
-      expected_output << main_menu
-      pipe.puts "6"
-      expected_output << "Thanks for playing!\n"
-      pipe.close_write
-      shell_output = pipe.read
-      pipe.close_read
-    end
-    assert_equal expected_output, shell_output
-  end
-
-  def test_integration_basic_usage_0e_manage_and_invalid_arg_given?
+  def test_integration_basic_usage_0d_start_and_invalid_arg_given?
     shell_output = ""
     expected_output = ""
     IO.popen('./textula start blah') do |pipe|

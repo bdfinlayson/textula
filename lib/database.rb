@@ -11,6 +11,7 @@ class Database
 
   def self.execute(*args)
     initialize_database unless defined?(@@db)
+    #@@db.('PRAGMA foreign_key = ON;')
     @@db.execute(*args)
   end
 
