@@ -221,4 +221,54 @@ class RoomsController
     RoomsModel.get_rooms(id).size
   end
 
+  def find_room_name(input, rooms)
+    rooms.at(input - 1)
+  end
+
+  def find_room_by_name(room, game_id)
+    RoomsModel.find_room_by_name(room, game_id)
+  end
+
+  def ask_for_which_room(id)
+    RoomsModel.get_rooms(id)
+  end
+
+  def list_rooms(choices)
+    choices.each_with_index { |choice, i| puts "#{i + 1}. #{choice}\n"}
+    input = STDIN.gets.chomp.to_i
+  end
+
+  def change_room_name(room, game_id)
+    input = STDIN.gets.chomp
+    RoomsModel.edit_room_name(game_id, input, room)
+  end
+
+
+  def edit_loop(id)
+    @game_id = id
+    options = ['Edit Room Name', 'Edit Description', 'Edit Description Prefix', 'Edit Objects Prefix', 'Edit Exits Prefix']
+    puts "THIS IS THE GAME ID: #{@game_id}"
+    choices = ask_for_which_room(@game_id)
+    puts "THESE ARE THE CHOICES: #{choices}"
+    input = list_rooms(choices)
+    choice = find_room_name(input, choices)
+    room = find_room_by_name(choice, @game_id)[0]
+    puts "You selected: #{room}\n"
+    puts "What change(s) would you like to make?\n\n"
+    options.each_with_index { |option, i| puts "#{i + 1}. #{option}\n"}
+    input = STDIN.gets.chomp.to_i
+    case input
+    when 1
+      puts "The room is currently named: #{room}. What would you like to change the name to?\n"
+      change_room_name(room, @game_id)
+      puts "Your room has been updated!\n"
+    when 2
+      room_info = RoomsModel.get_all_room_info_by_name(room, @game_id)
+      puts "Your room, #{room}, currently has the following description: #{room_info[0][3]}.\n"
+      puts "What would you like to change the description to?\n"
+      input = STDIN.gets.chomp
+      RoomsModel.edit_room_description(room_info[0][0], input, room_info[0][3])
+      puts "Your description has been updated!\n"
+    end
+  end
 end
