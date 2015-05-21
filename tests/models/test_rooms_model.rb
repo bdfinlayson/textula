@@ -104,8 +104,8 @@ describe RoomsModel do
         RoomsModel.create(2,'hall','nice','You are in a','You can see','You can go')
       end
       it 'should edit the room name' do
-        RoomsModel.edit_room_name(2,'living room')
-        assert_equal 'living room', RoomsModel.get_room(2)[0][0]
+        RoomsModel.edit_room_name(2,'living room', 'hall')
+        assert_equal 'living room', RoomsModel.get_room(4)[0][0]
       end
     end
   end
@@ -119,7 +119,7 @@ describe RoomsModel do
         RoomsModel.create(2,'hall','nice','You are in a','You can see','You can go')
       end
       it 'should edit the room description' do
-        RoomsModel.edit_room_description(3,'sparkling clean')
+        RoomsModel.edit_room_description(3,'sparkling clean','dirty')
         assert_equal 'sparkling clean', RoomsModel.get_description(3)[0][0]
       end
     end
@@ -134,7 +134,7 @@ describe RoomsModel do
         RoomsModel.create(2,'hall','nice','You are in a','You can see','You can go')
       end
       it 'should edit the room description prefix' do
-        RoomsModel.edit_room_description_prefix(3,'You are in the')
+        RoomsModel.edit_room_description_prefix(3,'You are in the','You are in a')
         assert_equal 'You are in the', RoomsModel.get_description_prefix(3)[0][0]
       end
     end
