@@ -30,7 +30,21 @@ if input.size == 1 and input[0] == 'start'
             puts "so you want to add an object?"
           }
           menu.choice('Edit room') {
-            puts "so you want to edit a room?"
+            puts "Please select a room:\n\n"
+            room = rooms.ask_for_which_room
+            loop do
+              choose do |menu|
+                menu.prompt = "#{room}"
+                menu.choice('Edit Room Name') {
+                  "yeh!!"
+
+
+                }
+                menu.choice('Go Back') {
+                  return
+                }
+              end
+            end
           }
           menu.choice('Edit object') {
             puts "so you want to edit an object?"
@@ -60,7 +74,9 @@ if input.size == 1 and input[0] == 'start'
             puts "so you want to add an object?"
           }
           menu.choice('Edit room') {
-            puts "so you want to edit a room?"
+            puts "Please select a room:\n\n"
+            rooms = RoomsController.new
+            rooms.edit_loop(game.game_id)
           }
           menu.choice('Edit object') {
             puts "so you want to edit an object?"
