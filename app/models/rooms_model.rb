@@ -8,12 +8,20 @@ class RoomsModel
     Database.execute("select room from rooms where game_id = ?", id).flatten
   end
 
+  def self.find_room_by_name(room, id)
+    Database.execute("select room from rooms where room = ? and game_id = ?", room, id).flatten
+  end
+
   def self.get_all_rooms_info(game_id)
     Database.execute("select room, description from rooms where game_id = ?", game_id)
   end
 
   def self.get_all_room_info(id, game_id)
     Database.execute("select * from rooms where id = ? and game_id = ?", id, game_id)
+  end
+
+  def self.get_all_room_info_by_name(name, game_id)
+    Database.execute("select * from rooms where room = ? and game_id = ?", name, game_id)
   end
 
   def self.count(id)
@@ -60,24 +68,24 @@ class RoomsModel
     Database.execute("select description from rooms where id = ?", location_id)
   end
 
-  def self.edit_room_name(id, new_value)
-    Database.execute("update rooms set room = ? where id = ?", new_value, id)
+  def self.edit_room_name(id, new_value, old_value)
+    Database.execute("update rooms set room = ? where game_id = ? and room = ?", new_value, id, old_value)
   end
 
-  def self.edit_room_description(id, new_value)
-    Database.execute("update rooms set description = ? where id = ?", new_value, id) 
+  def self.edit_room_description(id, new_value, old_value)
+    Database.execute("update rooms set description = ? where id = ? and description = ?", new_value, id, old_value)
   end
 
-  def self.edit_room_description_prefix(id, new_value)
-    Database.execute("update rooms set description_prefix = ? where id = ?", new_value, id) 
+  def self.edit_room_description_prefix(id, new_value, old_value)
+    Database.execute("update rooms set description_prefix = ? where id = ? and description_prefix = ?", new_value, id, old_value)
   end
 
   def self.edit_room_objects_prefix(id, new_value)
-    Database.execute("update rooms set objects_prefix = ? where id = ?", new_value, id) 
+    Database.execute("update rooms set objects_prefix = ? where id = ?", new_value, id)
   end
 
   def self.edit_room_exits_prefix(id, new_value)
-    Database.execute("update rooms set exits_prefix = ? where id = ?", new_value, id) 
+    Database.execute("update rooms set exits_prefix = ? where id = ?", new_value, id)
   end
 
   def self.get_exits_prefix(location_id)
