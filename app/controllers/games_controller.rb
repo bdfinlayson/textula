@@ -133,7 +133,7 @@ class GamesController
 
   def ask_for_which_game
     games = get_all_games
-    games.each_with_index { |game, i| puts "#{i + 1}. #{game}\n"}
+    games.each_with_index { |game, i| puts "#{i + 1}. #{game[0]}\n"}
     input = STDIN.gets.chomp.to_i
     name = find_game_name(input,games)
     game_info = find_game(name)

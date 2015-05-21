@@ -247,9 +247,7 @@ class RoomsController
   def edit_loop(id)
     @game_id = id
     options = ['Edit Room Name', 'Edit Description', 'Edit Description Prefix', 'Edit Objects Prefix', 'Edit Exits Prefix']
-    puts "THIS IS THE GAME ID: #{@game_id}"
     choices = ask_for_which_room(@game_id)
-    puts "THESE ARE THE CHOICES: #{choices}"
     input = list_rooms(choices)
     choice = find_room_name(input, choices)
     room = find_room_by_name(choice, @game_id)[0]
