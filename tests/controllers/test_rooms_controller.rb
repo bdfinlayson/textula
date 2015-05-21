@@ -55,4 +55,23 @@ describe RoomsController do
       end
     end
   end
+
+  describe ".ask_for_which_room" do
+    describe "shows all available rooms" do
+      before do
+        GamesModel.create("Nashville Adventure","Bryan","Adventure")
+        create_room(1,"kitchen","A nice place to eat")
+        create_room(1,"bedroom","Large enough for a kingsized bed")
+        create_room(1,"bathroom","The toilet could use a cleaning")
+        GamesModel.create("NSS","Adam","action")
+        create_room(2,"kitchen","A nice place to eat")
+        create_room(2,"bedroom","Large enough for a kingsized bed")
+        create_room(2,"bathroom","The toilet could use a cleaning")
+      end
+      it "should return the correct room names" do
+        rooms = RoomsController.new.ask_for_which_room(1)
+        assert_equal ["kitchen","bedroom","bathroom"], rooms
+      end
+    end
+  end
 end
