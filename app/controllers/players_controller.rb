@@ -1,4 +1,4 @@
-require_relative '../models/players_model'
+require_relative '../models/player'
 
 class PlayersController
   attr_accessor :location, :game_id, :player_name
@@ -10,10 +10,10 @@ class PlayersController
   end
 
   def create
-    PlayersModel.create(@game_id,@location,@player_name)
+    Player.create(@game_id,@location,@player_name)
   end
 
   def count
-    PlayersModel.count
+    Player.count
   end
 end

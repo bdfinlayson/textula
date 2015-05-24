@@ -2,8 +2,8 @@
 
 require 'sqlite3'
 require 'highline/import'
-require_relative '../models/rooms_model'
-require_relative '../models/exits_model'
+require_relative '../models/room'
+require_relative '../models/exit'
 require_relative '../../lib/database'
 require_relative 'games_controller'
 
@@ -96,7 +96,7 @@ class RoomsController
   end
 
   def run_program
-    @rooms = RoomsModel.get_rooms(@game_id)
+    @rooms = Room.get_rooms(@game_id)
     if @rooms.empty?
       puts "Your game currently has no rooms.\n"
     else
@@ -172,24 +172,24 @@ class RoomsController
   end
 
   def insert_follow_up
-    RoomsModel.insert_follow_up(@game_id,@choice,@description,@description_prefix, @objects_list_prefix, @exits_prefix)
+    Room.insert_follow_up(@game_id,@choice,@description,@description_prefix, @objects_list_prefix, @exits_prefix)
   end
 
   def add_choice_room
-    RoomsModel.add_placeholder(@game_id, @choice)
+    Room.add_placeholder(@game_id, @choice)
   end
 
 
   def insert_choice_room_exit_into_database
-    ExitsModel.set_exit(@room, @choice,@opposite_direction)
+    Exit.set_exit(@room, @choice,@opposite_direction)
   end
 
   def insert_exit_into_database
-    ExitsModel.set_exit(@choice, @room, @direction)
+    Exit.set_exit(@choice, @room, @direction)
   end
 
   def add_room
-    RoomsModel.create(@game_id, @room, @description,@description_prefix,@objects_list_prefix,@exits_prefix)
+    Room.create(@game_id, @room, @description,@description_prefix,@objects_list_prefix,@exits_prefix)
   end
 
   def confirm_choice_in_database
@@ -212,13 +212,13 @@ class RoomsController
   end
 
   def all(game_id)
-    RoomsModel.get_all_rooms_info(game_id)
+    Room.get_all_rooms_info(game_id)
   end
 
   def count(id)
     #if there are no rooms in the database it should return 0
     #if there are rooms it should return the correct count
-    RoomsModel.get_rooms(id).size
+    Room.get_rooms(id).size
   end
 
   def find_room_name(input, rooms)
@@ -226,11 +226,11 @@ class RoomsController
   end
 
   def find_room_by_name(room, game_id)
-    RoomsModel.find_room_by_name(room, game_id)
+    Room.find_room_by_name(room, game_id)
   end
 
   def ask_for_which_room(id)
-    RoomsModel.get_rooms(id)
+    Room.get_rooms(id)
   end
 
   def list_rooms(choices)
@@ -240,7 +240,7 @@ class RoomsController
 
   def change_room_name(room, game_id)
     input = STDIN.gets.chomp
-    RoomsModel.edit_room_name(game_id, input, room)
+    Room.edit_room_name(game_id, input, room)
   end
 
 
@@ -261,11 +261,11 @@ class RoomsController
       change_room_name(room, @game_id)
       puts "Your room has been updated!\n"
     when 2
-      room_info = RoomsModel.get_all_room_info_by_name(room, @game_id)
+      room_info = Room.get_all_room_info_by_name(room, @game_id)
       puts "Your room, #{room}, currently has the following description: #{room_info[0][3]}.\n"
       puts "What would you like to change the description to?\n"
       input = STDIN.gets.chomp
-      RoomsModel.edit_room_description(room_info[0][0], input, room_info[0][3])
+      Room.edit_room_description(room_info[0][0], input, room_info[0][3])
       puts "Your description has been updated!\n"
     end
   end

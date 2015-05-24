@@ -2,7 +2,7 @@ require 'sqlite3'
 require_relative '../../lib/database'
 
 
-class RoomsModel
+class Room
 
   def self.get_rooms(id)
     Database.execute("select room from rooms where game_id = ?", id).flatten

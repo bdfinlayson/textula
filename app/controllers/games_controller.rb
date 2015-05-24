@@ -1,6 +1,6 @@
-require_relative '../models/games_model'
-require_relative '../models/rooms_model'
-require_relative '../models/exits_model'
+require_relative '../models/game'
+require_relative '../models/room'
+require_relative '../models/exit'
 
 class GamesController
   attr_accessor :player_name, :game_name, :game_description, :game_id, :player
@@ -29,15 +29,15 @@ class GamesController
   end
 
   def add_new_game
-    GamesModel.create(@game_name,@player_name,@game_description)
+    Game.create(@game_name,@player_name,@game_description)
   end
 
   def count
-    GamesModel.count
+    Game.count
   end
 
   def get_game_id
-    GamesModel.get_id(@game_name)
+    Game.get_id(@game_name)
   end
 
   def play
@@ -49,7 +49,7 @@ class GamesController
   end
 
   def get_start_location
-    location = RoomsModel.get_start_location(@game_id)
+    location = Room.get_start_location(@game_id)
     location[1][0]
   end
 
@@ -90,41 +90,41 @@ class GamesController
   end
 
   def find_new_location_id(direction)
-    id = ExitsModel.get_new_location_id(direction, @player.location)
+    id = Exit.get_new_location_id(direction, @player.location)
     id[0][0]
   end
 
   def get_room_prefix
-    prefix = RoomsModel.get_room_prefix(@player.location)
+    prefix = Room.get_room_prefix(@player.location)
     prefix[0][0]
   end
 
   def get_room
-    room = RoomsModel.get_room(@player.location)
+    room = Room.get_room(@player.location)
     room[0][0]
   end
 
   def get_directions_prefix
-    prefix = RoomsModel.get_directions_prefix(@player.location)
+    prefix = Room.get_directions_prefix(@player.location)
     prefix[0][0]
   end
 
   def get_directions
-    directions = ExitsModel.get_directions(@player.location)
+    directions = Exit.get_directions(@player.location)
     directions.flatten.join(', ')
   end
 
   def get_description
-    description = RoomsModel.get_description(@player.location)
+    description = Room.get_description(@player.location)
     description[0][0]
   end
 
   def get_all_games
-    GamesModel.get_all_games
+    Game.get_all_games
   end
 
   def find_game(name)
-    GamesModel.find_game(name)
+    Game.find_game(name)
   end
 
   def find_game_name(input, games)
