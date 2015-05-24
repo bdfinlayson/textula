@@ -1,6 +1,6 @@
 require 'sqlite3'
 
-class Player
+class Player < ActiveRecord::Base
   def  self.create(game_id,location,player_name)
     Database.execute("insert into players (game_id, location, player_name) values (?, ?, ?)", game_id, location, player_name)
   end

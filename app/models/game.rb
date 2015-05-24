@@ -1,7 +1,7 @@
 require 'sqlite3'
 require_relative '../../lib/database'
 
-class Game
+class Game < ActiveRecord::Base
 
   def self.create(game_name, player_name, game_description)
     Database.load_structure

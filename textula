@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'highline/import'
-Dir["./app/**/*.rb"].each { |file| require file }
-Dir["./lib/*.rb"].each { |file| require file }
+require_relative 'lib/environment'
 
 menu_prompt = "1. Create New Game\n2. Open Existing Game\n3. Quit\n"
 secondary_menu = "1. Add room\n2. Add Object\n3. Edit Room\n4. Edit Object\n5. Quit\n"

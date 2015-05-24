@@ -2,8 +2,7 @@ require 'rubygems'
 require 'bundler/setup'
 require 'minitest/reporters'
 require 'minitest/autorun'
-Dir["./app/**/*.rb"].each { |file| require file }
-Dir["./lib/*.rb"].each { |file| require file }
+require_relative '../lib/environment'
 ENV["TEST"] = "true"
 
 reporter_options = { color: true }

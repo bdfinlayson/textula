@@ -2,7 +2,7 @@ require 'sqlite3'
 require_relative '../../lib/database'
 
 
-class Room
+class Room < ActiveRecord::Base
 
   def self.get_rooms(id)
     Database.execute("select room from rooms where game_id = ?", id).flatten

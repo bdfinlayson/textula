@@ -1,7 +1,7 @@
 require 'sqlite3'
 require_relative '../../lib/database'
 
-class Exit
+class Exit < ActiveRecord::Base
 
   def self.set_exit(choice, room, direction)
     child_room = Database.execute("select id from rooms where room = ?", "#{choice}").flatten

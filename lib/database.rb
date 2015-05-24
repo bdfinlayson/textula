@@ -1,4 +1,5 @@
 require 'sqlite3'
+require_relative 'environment'
 
 class Database
 
@@ -18,7 +19,7 @@ class Database
   def self.initialize_database
     directory = "db"
     Dir.mkdir(directory) unless File.exist?(directory)
-    environment = ENV["TEST"] ? "test" : "production"
+    environment = Environment.current
     database = "#{directory}/database_#{environment}.sqlite"
     @@db = SQLite3::Database.new( database )
   end
